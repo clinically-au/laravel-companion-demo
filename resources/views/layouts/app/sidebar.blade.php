@@ -16,17 +16,47 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                <flux:sidebar.group :heading="__('Companion')" class="grid">
+                    <flux:sidebar.item icon="shield-check" href="/companion/dashboard" :current="request()->is('companion/dashboard')">
+                        {{ __('Admin Dashboard') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="key" href="/companion/dashboard/agents" :current="request()->is('companion/dashboard/agents*')">
+                        {{ __('Agents') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="clipboard-document-list" href="/companion/dashboard/audit" :current="request()->is('companion/dashboard/audit*')">
+                        {{ __('Audit Log') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="adjustments-horizontal" href="/companion/dashboard/features" :current="request()->is('companion/dashboard/features*')">
+                        {{ __('Features') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+
+                <flux:sidebar.group :heading="__('API Endpoints')" class="grid">
+                    <flux:sidebar.item icon="signal" href="/companion/api/ping" target="_blank">
+                        {{ __('Ping') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="cube" href="/companion/api/models" target="_blank">
+                        {{ __('Models') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="map" href="/companion/api/routes" target="_blank">
+                        {{ __('Routes') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="cog-6-tooth" href="/companion/api/config" target="_blank">
+                        {{ __('Config') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/clinically-au/laravel-companion" target="_blank">
+                    {{ __('Package Repo') }}
                 </flux:sidebar.item>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
+                <flux:sidebar.item icon="folder-git-2" href="https://github.com/clinically-au/laravel-companion-demo" target="_blank">
+                    {{ __('Demo Repo') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
