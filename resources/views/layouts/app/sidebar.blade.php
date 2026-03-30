@@ -18,6 +18,9 @@
                 </flux:sidebar.group>
 
                 <flux:sidebar.group :heading="__('Companion')" class="grid">
+                    <flux:sidebar.item icon="magnifying-glass" :href="route('explorer')" :current="request()->routeIs('explorer')" wire:navigate>
+                        {{ __('API Explorer') }}
+                    </flux:sidebar.item>
                     <flux:sidebar.item icon="shield-check" href="/companion/dashboard" :current="request()->is('companion/dashboard')">
                         {{ __('Admin Dashboard') }}
                     </flux:sidebar.item>
