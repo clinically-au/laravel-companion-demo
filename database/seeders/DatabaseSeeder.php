@@ -15,10 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Comment::query()->delete();
+        Post::withTrashed()->forceDelete();
+        Tag::query()->delete();
+
+        $admin = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            ['name' => 'Test User', 'password' => 'password'],
+        );
 
         $users = User::factory(5)->create();
         $allUsers = $users->push($admin);
