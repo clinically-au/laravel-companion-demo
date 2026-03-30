@@ -33,6 +33,9 @@
                     <flux:sidebar.item icon="adjustments-horizontal" href="/companion/dashboard/features" :current="request()->is('companion/dashboard/features*')">
                         {{ __('Features') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="document-text" href="/companion/api/docs" target="_blank">
+                        {{ __('API Docs') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
 
                 <flux:sidebar.group :heading="__('Demo API')" class="grid">
