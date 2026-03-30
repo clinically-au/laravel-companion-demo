@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3026b29bac8aee1a33964451d87ad35b",
+    "content-hash": "e2de7475925cb0d0d9a829a1236179f4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -192,11 +192,17 @@
         },
         {
             "name": "clinically/laravel-companion",
-            "version": "dev-main",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clinically-au/laravel-companion.git",
+                "reference": "9f3ff6bfd4a71b61d3a7853067429d66206e2850"
+            },
             "dist": {
-                "type": "path",
-                "url": "../laravel-companion",
-                "reference": "be000ceddb776337517a16c963d422274b6b4f68"
+                "type": "zip",
+                "url": "https://api.github.com/repos/clinically-au/laravel-companion/zipball/9f3ff6bfd4a71b61d3a7853067429d66206e2850",
+                "reference": "9f3ff6bfd4a71b61d3a7853067429d66206e2850",
+                "shasum": ""
             },
             "require": {
                 "bacon/bacon-qr-code": "^3.0",
@@ -235,22 +241,7 @@
                     "Clinically\\Companion\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Clinically\\Companion\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "pest"
-                ],
-                "analyse": [
-                    "phpstan analyse"
-                ],
-                "format": [
-                    "pint"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -263,10 +254,11 @@
                 "laravel",
                 "monitoring"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/clinically-au/laravel-companion/issues",
+                "source": "https://github.com/clinically-au/laravel-companion/tree/v0.0.1"
+            },
+            "time": "2026-03-30T09:24:03+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -10366,9 +10358,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "clinically/laravel-companion": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
