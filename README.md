@@ -2,6 +2,8 @@
 
 Demo and test bed for the [clinically/laravel-companion](https://github.com/clinically-au/laravel-companion) package. This app demonstrates and tests every feature of the package.
 
+**Live demo: [companion-demo.clindev.au](https://companion-demo.clindev.au)**
+
 ## What's Inside
 
 - **Laravel 13** + Livewire 4 + Flux UI (free edition)
