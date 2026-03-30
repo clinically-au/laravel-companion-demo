@@ -1,19 +1,24 @@
 <?php
 
+use Clinically\Companion\Services\LogParserService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
-use Livewire\Attributes\Computed;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 new #[Title('API Explorer')] class extends Component
 {
     public string $activeSection = 'environment';
+
+    public string $selectedLogFile = '';
+
+    public string $logLevelFilter = '';
 
     #[Computed]
     public function environment(): array
@@ -140,7 +145,7 @@ new #[Title('API Explorer')] class extends Component
     }
 
     #[Computed]
-    public function logs(): array
+    public function logFiles(): array
     {
         $path = storage_path('logs');
         if (! is_dir($path)) {
@@ -157,6 +162,34 @@ new #[Title('API Explorer')] class extends Component
             ->sortByDesc('last_modified')
             ->values()
             ->all();
+    }
+
+    #[Computed]
+    public function logEntries(): array
+    {
+        if (! $this->selectedLogFile) {
+            return [];
+        }
+
+        $path = storage_path("logs/{$this->selectedLogFile}");
+        if (! is_file($path)) {
+            return [];
+        }
+
+        $parser = app(LogParserService::class);
+        $content = $parser->tailFile($path, 100);
+        $entries = $parser->parse(
+            $content,
+            $this->logLevelFilter ?: null,
+        );
+
+        return array_reverse(array_slice($entries, -50));
+    }
+
+    public function selectLogFile(string $file): void
+    {
+        $this->selectedLogFile = basename($file);
+        unset($this->logEntries);
     }
 
     #[Computed]
@@ -358,27 +391,78 @@ new #[Title('API Explorer')] class extends Component
 
         {{-- Logs --}}
         @if ($activeSection === 'logs')
+            {{-- File List --}}
             <div class="rounded-xl border border-zinc-200 dark:border-zinc-700">
                 <div class="border-b border-zinc-200 px-5 py-3 dark:border-zinc-700">
                     <flux:heading size="lg">Log Files</flux:heading>
                     <flux:text size="sm">GET /companion/api/logs</flux:text>
                 </div>
-                @if (empty($this->logs))
+                @if (empty($this->logFiles))
                     <div class="px-5 py-8 text-center text-sm text-zinc-400">No log files found.</div>
                 @else
                     <div class="divide-y divide-zinc-100 dark:divide-zinc-800">
-                        @foreach ($this->logs as $log)
-                            <div class="flex items-center justify-between px-5 py-3">
-                                <code class="text-sm">{{ $log['name'] }}</code>
+                        @foreach ($this->logFiles as $log)
+                            <button wire:click="selectLogFile('{{ $log['name'] }}')" class="flex w-full items-center justify-between px-5 py-3 text-left transition hover:bg-zinc-50 dark:hover:bg-zinc-800/50 {{ $selectedLogFile === $log['name'] ? 'bg-zinc-50 dark:bg-zinc-800/50' : '' }}">
+                                <code class="text-sm {{ $selectedLogFile === $log['name'] ? 'font-bold' : '' }}">{{ $log['name'] }}</code>
                                 <div class="flex items-center gap-4 text-sm text-zinc-500">
                                     <span>{{ $log['size'] }}</span>
                                     <span>{{ $log['last_modified'] }}</span>
                                 </div>
-                            </div>
+                            </button>
                         @endforeach
                     </div>
                 @endif
             </div>
+
+            {{-- Parsed Entries --}}
+            @if ($selectedLogFile)
+                <div class="rounded-xl border border-zinc-200 dark:border-zinc-700">
+                    <div class="flex items-center justify-between border-b border-zinc-200 px-5 py-3 dark:border-zinc-700">
+                        <div>
+                            <flux:heading size="lg">{{ $selectedLogFile }}</flux:heading>
+                            <flux:text size="sm">GET /companion/api/logs/{{ $selectedLogFile }} — structured parsed output</flux:text>
+                        </div>
+                        <div class="flex gap-1.5">
+                            @foreach (['', 'error', 'warning', 'info', 'debug'] as $level)
+                                <flux:button
+                                    wire:click="$set('logLevelFilter', '{{ $level }}')"
+                                    size="xs"
+                                    :variant="$logLevelFilter === $level ? 'filled' : 'ghost'"
+                                >
+                                    {{ $level ?: 'All' }}
+                                </flux:button>
+                            @endforeach
+                        </div>
+                    </div>
+                    @if (empty($this->logEntries))
+                        <div class="px-5 py-8 text-center text-sm text-zinc-400">No entries{{ $logLevelFilter ? " at level '{$logLevelFilter}'" : '' }}.</div>
+                    @else
+                        <div class="divide-y divide-zinc-100 dark:divide-zinc-800">
+                            @foreach ($this->logEntries as $entry)
+                                <div class="px-5 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <flux:badge size="sm" :color="match($entry['level']) { 'emergency', 'alert', 'critical', 'error' => 'red', 'warning' => 'amber', 'notice', 'info' => 'blue', default => 'zinc' }">
+                                            {{ $entry['level'] }}
+                                        </flux:badge>
+                                        <span class="font-mono text-xs text-zinc-400">{{ $entry['datetime'] }}</span>
+                                        <span class="text-xs text-zinc-400">{{ $entry['channel'] }}</span>
+                                    </div>
+                                    <div class="mt-1.5 text-sm">{{ Str::limit($entry['message'], 300) }}</div>
+                                    @if ($entry['context'])
+                                        <pre class="mt-2 max-h-32 overflow-auto rounded bg-zinc-100 p-2 text-xs dark:bg-zinc-800">{{ Str::limit($entry['context'], 500) }}</pre>
+                                    @endif
+                                    @if ($entry['stack_trace'])
+                                        <details class="mt-2">
+                                            <summary class="cursor-pointer text-xs text-zinc-400 hover:text-zinc-600">Stack trace</summary>
+                                            <pre class="mt-1 max-h-48 overflow-auto rounded bg-zinc-100 p-2 text-xs dark:bg-zinc-800">{{ Str::limit($entry['stack_trace'], 2000) }}</pre>
+                                        </details>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endif
         @endif
 
         {{-- Schedule --}}
