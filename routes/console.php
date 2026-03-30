@@ -10,3 +10,4 @@ Artisan::command('inspire', function () {
 
 Schedule::command('inspire')->hourly()->description('Display an inspiring quote');
 Schedule::command('cache:prune-stale-tags')->daily()->description('Prune stale cache tags');
+Schedule::command('app:reset-demo-data')->everySixHours()->description('Reset demo database to clean state');
