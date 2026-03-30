@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cef3b5ea2708b2165975d21858691da",
+    "content-hash": "8eaa741897d580c1064469edb4cea763",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -192,16 +192,16 @@
         },
         {
             "name": "clinically/laravel-companion",
-            "version": "v0.0.4",
+            "version": "v0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clinically-au/laravel-companion.git",
-                "reference": "38ff6d6e04cdbe5678c9e247d73df980a5480714"
+                "reference": "185849b2266c36e0801783e6c20ed4f7f7057ee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clinically-au/laravel-companion/zipball/38ff6d6e04cdbe5678c9e247d73df980a5480714",
-                "reference": "38ff6d6e04cdbe5678c9e247d73df980a5480714",
+                "url": "https://api.github.com/repos/clinically-au/laravel-companion/zipball/185849b2266c36e0801783e6c20ed4f7f7057ee4",
+                "reference": "185849b2266c36e0801783e6c20ed4f7f7057ee4",
                 "shasum": ""
             },
             "require": {
@@ -256,9 +256,9 @@
             ],
             "support": {
                 "issues": "https://github.com/clinically-au/laravel-companion/issues",
-                "source": "https://github.com/clinically-au/laravel-companion/tree/v0.0.4"
+                "source": "https://github.com/clinically-au/laravel-companion/tree/v0.0.5"
             },
-            "time": "2026-03-30T11:24:35+00:00"
+            "time": "2026-03-30T11:32:22+00:00"
         },
         {
             "name": "dasprid/enum",
