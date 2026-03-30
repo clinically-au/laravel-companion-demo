@@ -56,37 +56,9 @@ php artisan db:seed
 npm install && npm run build
 ```
 
-### Laravel 13 + mateffy/laravel-introspect
+### Laravel 13 Note
 
-The companion package depends on `mateffy/laravel-introspect` which doesn't yet support Laravel 13. This demo uses a [local fork](https://github.com/Capevace/laravel-introspect) with the `illuminate/contracts` constraint relaxed to `^13.0`. The fork is referenced as a path repository in `composer.json`:
-
-```json
-"repositories": [
-    {
-        "type": "path",
-        "url": "../laravel-introspect",
-        "options": { "symlink": true }
-    }
-]
-```
-
-To set up the fork:
-
-```bash
-cd ..
-git clone --depth 1 https://github.com/Capevace/laravel-introspect.git
-```
-
-Then edit `laravel-introspect/composer.json` and change:
-```
-"illuminate/contracts": "^10.0||^11.0||^12.0"
-```
-to:
-```
-"illuminate/contracts": "^10.0||^11.0||^12.0||^13.0"
-```
-
-Also add `"version": "1.1.99"` to the root of that `composer.json`.
+The companion package depends on `mateffy/laravel-introspect` which doesn't yet officially support Laravel 13. This demo uses a [fork](https://github.com/clinically-au/laravel-introspect) with the `illuminate/contracts` constraint relaxed to include `^13.0`, referenced as a VCS repository in `composer.json`. This is handled automatically by `composer install` — no manual steps needed.
 
 On **Laravel 11 or 12**, this fork is not needed — remove the `repositories` block and `mateffy/laravel-introspect` line from `composer.json`.
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2de7475925cb0d0d9a829a1236179f4",
+    "content-hash": "c53759c826c2cd8a8c58a2d6457eb1e4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2496,11 +2496,17 @@
         },
         {
             "name": "mateffy/laravel-introspect",
-            "version": "1.1.99",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clinically-au/laravel-introspect.git",
+                "reference": "3badb00680b50c1bf05083ec538d48be6bf74cc4"
+            },
             "dist": {
-                "type": "path",
-                "url": "../laravel-introspect",
-                "reference": "d186ef9187a0d84d0c1c8b741e56db335cbbda7c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/clinically-au/laravel-introspect/zipball/3badb00680b50c1bf05083ec538d48be6bf74cc4",
+                "reference": "3badb00680b50c1bf05083ec538d48be6bf74cc4",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^10.0||^11.0||^12.0||^13.0",
@@ -2524,6 +2530,7 @@
                 "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
                 "phpstan/phpstan-phpunit": "^1.3||^2.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2599,10 +2606,17 @@
                 "laravel",
                 "laravel-introspect"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/clinically-au/laravel-introspect/tree/main",
+                "issues": "https://github.com/clinically-au/laravel-introspect/issues"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/Lukas Mateffy"
+                }
+            ],
+            "time": "2026-03-30T09:40:18+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -10356,9 +10370,18 @@
             "time": "2025-12-08T11:19:18+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "mateffy/laravel-introspect",
+            "version": "dev-main",
+            "alias": "1.1.99",
+            "alias_normalized": "1.1.99.0"
+        }
+    ],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "mateffy/laravel-introspect": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
