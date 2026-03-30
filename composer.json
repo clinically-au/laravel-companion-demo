@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^8.3",
-        "clinically/laravel-companion": "^0.0.2",
+        "clinically/laravel-companion": "^0.0.3",
         "laravel/fortify": "^1.34",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
