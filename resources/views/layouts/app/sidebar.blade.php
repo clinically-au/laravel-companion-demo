@@ -32,18 +32,12 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
 
-                <flux:sidebar.group :heading="__('API Endpoints')" class="grid">
-                    <flux:sidebar.item icon="signal" href="/companion/api/ping" target="_blank">
-                        {{ __('Ping') }}
+                <flux:sidebar.group :heading="__('Demo API')" class="grid">
+                    <flux:sidebar.item icon="globe-alt" href="/api/v1/posts" target="_blank">
+                        {{ __('Posts API') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="cube" href="/companion/api/models" target="_blank">
-                        {{ __('Models') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="map" href="/companion/api/routes" target="_blank">
-                        {{ __('Routes') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="cog-6-tooth" href="/companion/api/config" target="_blank">
-                        {{ __('Config') }}
+                    <flux:sidebar.item icon="tag" href="/api/v1/tags" target="_blank">
+                        {{ __('Tags API') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
